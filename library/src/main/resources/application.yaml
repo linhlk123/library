@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /library
+spring:
+  datasource: 
+    url: jdbc:mysql://library-linhluutk-3a5e.a.aivencloud.com:22078/library?ssl-mode=REQUIRED
+    username: avnadmin
+    password: ${AIVEN_DB_PASSWORD:AVNS_Yv-yeZuzVaPSSsBate3}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+
+jwt:
+    signer-key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7VJTUt9Us8cKj"
+
+logging:
+  level:
+    com.lms.library: DEBUG
+    org.springframework.security: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
