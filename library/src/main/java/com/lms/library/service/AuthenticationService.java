@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,12 +15,15 @@ import java.text.ParseException;
 
 import com.lms.library.dto.request.AuthenticationRequest;
 import com.lms.library.dto.request.IntrospectRequest;
+import com.lms.library.dto.request.LogoutRequest;
 import com.lms.library.dto.response.AuthenticationResponse;
 import com.lms.library.dto.response.IntrospectResponse;
+import com.lms.library.entity.InvalidatedToken;
 import com.lms.library.entity.User;
 import com.lms.library.exception.AppException;
 import com.lms.library.exception.ErrorCode;
 import com.lms.library.repository.UserRepository;
+import com.lms.library.repository.InvalidatedTokenRepository;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -44,18 +48,19 @@ public class AuthenticationService {
 
     final UserRepository userRepository;
     final PasswordEncoder passwordEncoder;
-    
+    final InvalidatedTokenRepository invalidatedTokenRepository;
+
     @NonFinal
     @Value("${jwt.signer-key}")
     private String SIGNER_KEY;
-    
+
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        
+
         // Verify the password
         boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
-        if(!authenticated) {
+        if (!authenticated) {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         }
 
@@ -66,26 +71,62 @@ public class AuthenticationService {
                 .authenticated(true)
                 .build();
     }
-        
+
     public IntrospectResponse introspect(IntrospectRequest request) throws JOSEException, ParseException {
         var token = request.getToken();
-        SignedJWT signedJWT = SignedJWT.parse(token);
-        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
-        boolean verified = signedJWT.verify(verifier);
-        Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        boolean valid = verified && expiryTime.after(new Date());
-        return IntrospectResponse.builder()
-                .valid(valid)
-                .build();
+            boolean isValid = true;
+
+            try {
+                verifyToken(token); // Hàm verify chữ ký và thời gian hết hạn
+            } catch (AppException e) {
+                isValid = false;
+            }
+
+            return IntrospectResponse.builder()
+                    .valid(isValid)
+                    .build();
     }
 
-    private String buildScope(User user){
+    private String buildScope(User user) {
         StringJoiner stringJoiner = new StringJoiner(" ");
 
         if (!CollectionUtils.isEmpty(user.getRoles())) {
             user.getRoles().forEach(role -> stringJoiner.add("ROLE_" + role.getName()));
         }
         return stringJoiner.toString();
+    }
+
+    public void logout(LogoutRequest request) throws ParseException, JOSEException {
+        var signToken = (SignedJWT) verifyToken(request.getToken());
+
+        String jit = signToken.getJWTClaimsSet().getJWTID();
+        Date expiryTime = signToken.getJWTClaimsSet().getExpirationTime();
+
+        InvalidatedToken invalidatedToken = InvalidatedToken.builder()
+                .id(jit)
+                .expiryTime(expiryTime)
+                .build();
+
+        invalidatedTokenRepository.save(invalidatedToken);
+    }
+
+    private SignedJWT verifyToken(String token) throws JOSEException, ParseException {
+        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
+
+        SignedJWT signedJWT = SignedJWT.parse(token);
+
+        Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        var verified = signedJWT.verify(verifier);
+
+        if (!(verified && expiryTime.after(new Date())))
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+
+        if (invalidatedTokenRepository
+                .existsById(signedJWT.getJWTClaimsSet().getJWTID()))
+            throw new AppException(ErrorCode.UNAUTHENTICATED);
+
+        return signedJWT;
     }
 
     // Phương thức tạo token JWT
@@ -98,6 +139,7 @@ public class AuthenticationService {
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plus(24, ChronoUnit.HOURS).toEpochMilli())) // 24 hour expiration
                 .claim("scope", buildScope(user))
+                .jwtID(UUID.randomUUID().toString())
                 .build();
         Payload payload = new Payload(claimsSet.toJSONObject());
         JWSObject jwsObject = new JWSObject(header, payload);
@@ -109,6 +151,5 @@ public class AuthenticationService {
             throw new RuntimeException("Error signing the token", e);
         }
     }
-
 
 }

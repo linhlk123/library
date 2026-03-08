@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lms.library.dto.request.ApiResponse;
 import com.lms.library.dto.request.AuthenticationRequest;
 import com.lms.library.dto.request.IntrospectRequest;
+import com.lms.library.dto.request.LogoutRequest;
 import com.lms.library.dto.response.AuthenticationResponse;
 import com.lms.library.dto.response.IntrospectResponse;
 import com.lms.library.exception.ErrorCode;
@@ -47,6 +48,15 @@ public class AuthenticationController {
         return ApiResponse.<IntrospectResponse>builder()
                 .result(result)
                 .code(ErrorCode.SUCCESS.getCode())
+                .build();
+    }
+
+
+    @PostMapping("/logout")
+    ApiResponse<Void> logout(@RequestBody LogoutRequest request)
+            throws ParseException, JOSEException {
+        authenticationService.logout(request);
+        return ApiResponse.<Void>builder()
                 .build();
     }
 }

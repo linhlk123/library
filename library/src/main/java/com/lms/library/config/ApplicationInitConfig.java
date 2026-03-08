@@ -21,22 +21,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ApplicationInitConfig {
 
-    PasswordEncoder passwordEncoder;
     @Bean
-    ApplicationRunner applicationRunner(UserRepository userRepository) {
+    ApplicationRunner applicationRunner(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            if (userRepository.findByUsername("admin").isEmpty()){
+            if (userRepository.findByUsername("admin").isEmpty()) {
                 var roles = new HashSet<Role>();
                 roles.add(Role.builder().name(com.lms.library.enums.Role.ADMIN.name()).build());
                 // Tạo user admin với mật khẩu đã mã hóa
                 User user = User.builder()
-                    .username("admin")
-                    .password(passwordEncoder.encode("admin123")) 
-                    .roles(roles)
-                    .build();
+                        .username("admin")
+                        .password(passwordEncoder.encode("admin123"))
+                        .roles(roles)
+                        .build();
                 // Lưu user admin vào cơ sở dữ liệu
                 userRepository.save(user);
-                log.warn("Admin user created with username 'admin'and password 'admin123', please change the password after first login.");
+                log.warn(
+                        "Admin user created with username 'admin'and password 'admin123', please change the password after first login.");
             }
         };
     }

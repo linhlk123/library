@@ -28,8 +28,8 @@ public enum ErrorCode {
     PERMISSION_EXISTED(4001, "Quyền này đã tồn tại", HttpStatus.BAD_REQUEST),
     PERMISSION_NOT_FOUND(4002, "Không tìm thấy thông tin quyền", HttpStatus.NOT_FOUND),
     ROLE_EXISTED(5001, "Vai trò này đã tồn tại", HttpStatus.BAD_REQUEST),
-    ROLE_NOT_FOUND(5002, "Không tìm thấy thông tin vai trò", HttpStatus.NOT_FOUND)
-    ;
+    ROLE_NOT_FOUND(5002, "Không tìm thấy thông tin vai trò", HttpStatus.NOT_FOUND),
+    DOB_INVALID(6001, "Ngày sinh không hợp lệ", HttpStatus.BAD_REQUEST);
     int code;
     String message;
     HttpStatus status;
