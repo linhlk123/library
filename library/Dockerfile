@@ -1,7 +1,7 @@
 # ==========================================
 # GIAI ĐOẠN 1: BUILD (Biên dịch code ra file .jar)
 # ==========================================
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copy file cấu hình thư viện và tải về trước (để cache, giúp build nhanh hơn ở các lần sau)
