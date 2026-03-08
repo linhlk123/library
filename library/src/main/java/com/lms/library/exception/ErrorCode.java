@@ -24,7 +24,12 @@ public enum ErrorCode {
     ACCOUNT_NOT_ACTIVATED(2006, "Tài khoản chưa được kích hoạt qua email", HttpStatus.FORBIDDEN),
     USER_EXISTED(3001, "Email này đã được đăng ký", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(3002, "Không tìm thấy thông tin người dùng", HttpStatus.NOT_FOUND),
-    INVALID_PASSWORD(3003, "Mật khẩu phải có ít nhất 8 ký tự", HttpStatus.BAD_REQUEST);
+    INVALID_PASSWORD(3003, "Mật khẩu phải có ít nhất 8 ký tự", HttpStatus.BAD_REQUEST),
+    PERMISSION_EXISTED(4001, "Quyền này đã tồn tại", HttpStatus.BAD_REQUEST),
+    PERMISSION_NOT_FOUND(4002, "Không tìm thấy thông tin quyền", HttpStatus.NOT_FOUND),
+    ROLE_EXISTED(5001, "Vai trò này đã tồn tại", HttpStatus.BAD_REQUEST),
+    ROLE_NOT_FOUND(5002, "Không tìm thấy thông tin vai trò", HttpStatus.NOT_FOUND)
+    ;
     int code;
     String message;
     HttpStatus status;

@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,12 @@ import com.lms.library.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class UserService {
     //khai báo repository và mapper
     UserRepository userRepository;
@@ -47,22 +51,29 @@ public class UserService {
         user =  userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
-    // Phương thức lấy danh sách tất cả người dùng
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserResponse> getAllUsers(){
+        log.info("Getting all users");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
-    // Phương thức lấy thông tin người dùng theo ID
+    
+    @PostAuthorize("returnObject.id == authentication.name or hasAuthority('ADMIN')")
     public UserResponse getUserById(String id){
+        log.info("Getting user by ID: {}", id);
         return userMapper.toUserResponse(userRepository.findById(id)
             .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public UserResponse updateUser(String id, UserUpdateRequest request){
+        log.info("Updating user: {}", id);
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userMapper.updateUser(user, request);  
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteUser(String id){
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userRepository.delete(user);
