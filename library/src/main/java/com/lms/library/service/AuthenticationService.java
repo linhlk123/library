@@ -16,6 +16,7 @@ import java.text.ParseException;
 import com.lms.library.dto.request.AuthenticationRequest;
 import com.lms.library.dto.request.IntrospectRequest;
 import com.lms.library.dto.request.LogoutRequest;
+import com.lms.library.dto.request.RefreshRequest;
 import com.lms.library.dto.response.AuthenticationResponse;
 import com.lms.library.dto.response.IntrospectResponse;
 import com.lms.library.entity.InvalidatedToken;
@@ -128,6 +129,33 @@ public class AuthenticationService {
 
         return signedJWT;
     }
+
+    public AuthenticationResponse refreshToken(RefreshRequest request) throws ParseException, JOSEException {
+        var signedJWT = verifyToken(request.getToken());
+
+        var jit = signedJWT.getJWTClaimsSet().getJWTID();
+        var expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        InvalidatedToken invalidatedToken = InvalidatedToken.builder()
+                .id(jit)
+                .expiryTime(expiryTime)
+                .build();
+        invalidatedTokenRepository.save(invalidatedToken);
+
+        var id = signedJWT.getJWTClaimsSet().getSubject();
+        System.out.println("====== USER ID LẤY TỪ TOKEN LÀ: " + id + " ======");
+        var user = userRepository.findById(id).orElseThrow(
+                () -> new AppException(ErrorCode.UNAUTHENTICATED)
+        );
+
+        var token = generateToken(user);
+
+        return AuthenticationResponse.builder()
+                .token(token)
+                .authenticated(true)
+                .build();
+    }
+    
 
     // Phương thức tạo token JWT
     private String generateToken(User user) {
