@@ -27,13 +27,13 @@ public class ApplicationInitConfig {
             if (userRepository.findByUsername("admin").isEmpty()) {
                 var roles = new HashSet<Role>();
                 roles.add(Role.builder().name(com.lms.library.enums.Role.ADMIN.name()).build());
-                // Tạo user admin với mật khẩu đã mã hóa
+                // Create admin user with encoded password
                 User user = User.builder()
                         .username("admin")
                         .password(passwordEncoder.encode("admin123"))
                         .roles(roles)
                         .build();
-                // Lưu user admin vào cơ sở dữ liệu
+                // Save admin user to database
                 userRepository.save(user);
                 log.warn(
                         "Admin user created with username 'admin'and password 'admin123', please change the password after first login.");

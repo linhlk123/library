@@ -14,29 +14,29 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ApiResponse<Void>> handlingRuntimeException(Exception ex) {
         ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
-                                            .code(ErrorCode.UNCATEGORIZED_ERROR.getCode())
-                                            .message(ErrorCode.UNCATEGORIZED_ERROR.getMessage())
-                                            .build();
+                .code(ErrorCode.UNCATEGORIZED_ERROR.getCode())
+                .message(ErrorCode.UNCATEGORIZED_ERROR.getMessage())
+                .build();
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse<Void>> handlingAppException(AppException ex) {
-    ErrorCode errorCode = ex.getErrorCode();
-    ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
-                                            .code(errorCode.getCode())
-                                            .message(errorCode.getMessage())
-                                            .build();
+        ErrorCode errorCode = ex.getErrorCode();
+        ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
+                .code(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .build();
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
-    ResponseEntity<ApiResponse<Void>> handlingAccessDeniedException(AccessDeniedException exception){
+    ResponseEntity<ApiResponse<Void>> handlingAccessDeniedException(AccessDeniedException exception) {
         ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
         ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
-                                            .code(errorCode.getCode())
-                                            .message(errorCode.getMessage())
-                                            .build();
+                .code(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .build();
         return ResponseEntity.status(errorCode.getStatus().value()).body(apiResponse);
     }
 
@@ -44,18 +44,18 @@ public class GlobalExceptionHandler {
     ResponseEntity<ApiResponse<Void>> handlingValidationException(MethodArgumentNotValidException ex) {
         String enumKey = ex.getFieldError().getDefaultMessage();
 
-        // Lấy mã lỗi từ enum dựa trên khóa
+        // Get error code from enum based on the key
         ErrorCode errorCode = ErrorCode.INVALID_CREDENTIALS;
         try {
             errorCode = ErrorCode.valueOf(enumKey);
         } catch (IllegalArgumentException e) {
             errorCode = ErrorCode.UNCATEGORIZED_ERROR;
         }
-        // Tạo phản hồi API với mã lỗi và thông điệp tương ứng
+        // Build API response with the corresponding error code and message
         ApiResponse<Void> apiResponse = ApiResponse.<Void>builder()
-                                            .code(errorCode.getCode())
-                                            .message(errorCode.getMessage())
-                                            .build();
+                .code(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .build();
         return ResponseEntity.badRequest().body(apiResponse);
     }
 }

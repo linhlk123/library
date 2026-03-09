@@ -75,17 +75,17 @@ public class AuthenticationService {
 
     public IntrospectResponse introspect(IntrospectRequest request) throws JOSEException, ParseException {
         var token = request.getToken();
-            boolean isValid = true;
+        boolean isValid = true;
 
-            try {
-                verifyToken(token); // Hàm verify chữ ký và thời gian hết hạn
-            } catch (AppException e) {
-                isValid = false;
-            }
+        try {
+            verifyToken(token); // Verify signature and expiration time
+        } catch (AppException e) {
+            isValid = false;
+        }
 
-            return IntrospectResponse.builder()
-                    .valid(isValid)
-                    .build();
+        return IntrospectResponse.builder()
+                .valid(isValid)
+                .build();
     }
 
     private String buildScope(User user) {
@@ -143,10 +143,9 @@ public class AuthenticationService {
         invalidatedTokenRepository.save(invalidatedToken);
 
         var id = signedJWT.getJWTClaimsSet().getSubject();
-        System.out.println("====== USER ID LẤY TỪ TOKEN LÀ: " + id + " ======");
+        System.out.println("====== USER ID FROM TOKEN: " + id + " ======");
         var user = userRepository.findById(id).orElseThrow(
-                () -> new AppException(ErrorCode.UNAUTHENTICATED)
-        );
+                () -> new AppException(ErrorCode.UNAUTHENTICATED));
 
         var token = generateToken(user);
 
@@ -155,9 +154,8 @@ public class AuthenticationService {
                 .authenticated(true)
                 .build();
     }
-    
 
-    // Phương thức tạo token JWT
+    // Generate JWT token
     private String generateToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet claimsSet;

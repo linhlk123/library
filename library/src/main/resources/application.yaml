@@ -25,3 +25,7 @@ logging:
     org.springframework.security: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+gemini:
+  api-key: "AIzaSyBCpd_y9uHLIJDjXrb6nYWUbEgPNAf7WLk"
+  url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"

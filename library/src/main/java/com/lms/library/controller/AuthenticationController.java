@@ -28,7 +28,7 @@ import lombok.experimental.FieldDefaults;
 public class AuthenticationController {
         AuthenticationService authenticationService;
 
-        // Endpoint để xác thực người dùng và cấp token JWT
+        // Endpoint to authenticate user and issue JWT token
         @PostMapping("/token")
         public ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
                 var result = authenticationService.authenticate(request);
@@ -39,7 +39,7 @@ public class AuthenticationController {
                                 .build();
         }
 
-        // Endpoint để kiểm tra tính hợp lệ của token JWT
+        // Endpoint to validate JWT token
         @PostMapping("/introspect")
         public ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
                         throws JOSEException, ParseException {

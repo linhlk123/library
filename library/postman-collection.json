@@ -359,6 +359,32 @@
           }
         }
       ]
+    },
+    {
+      "name": "AI Chatbot",
+      "item": [
+        {
+          "name": "Chat with AI",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Bạn có thể giới thiệu sách hay không?\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/ai-chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "ai-chat"]
+            },
+            "description": "Send a message to the Gemini-powered AI chatbot. Accepts a JSON body with a 'message' field. Returns the AI response as raw JSON string."
+          }
+        }
+      ]
     }
   ]
 }

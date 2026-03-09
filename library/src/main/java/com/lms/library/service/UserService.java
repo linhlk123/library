@@ -1,6 +1,5 @@
 package com.lms.library.service;
 
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,54 +28,53 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserService {
-    //khai báo repository và mapper
+    // Declare repository and mapper
     UserRepository userRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreationRequest request) {
-        if(userRepository.existsByUsername(request.getUsername())) {
+        if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_EXISTED);
         }
 
-        //Map request vào user entity
+        // Map request to user entity
         User user = userMapper.toUser(request);
-        //Encrypt password
+        // Encrypt password
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         Set<Role> roles = new HashSet<>();
         roles.add(Role.builder().name(com.lms.library.enums.Role.USER.name()).build());
         user.setRoles(roles);
-         
-        user =  userRepository.save(user);
+
+        user = userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public List<UserResponse> getAllUsers(){
+    public List<UserResponse> getAllUsers() {
         log.info("Getting all users");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
-    
+
     @PostAuthorize("returnObject.id == authentication.name or hasAuthority('ADMIN')")
-    public UserResponse getUserById(String id){
+    public UserResponse getUserById(String id) {
         log.info("Getting user by ID: {}", id);
         return userMapper.toUserResponse(userRepository.findById(id)
-            .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public UserResponse updateUser(String id, UserUpdateRequest request){
+    public UserResponse updateUser(String id, UserUpdateRequest request) {
         log.info("Updating user: {}", id);
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        userMapper.updateUser(user, request);  
+        userMapper.updateUser(user, request);
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteUser(String id){
+    public void deleteUser(String id) {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userRepository.delete(user);
     }
 }
-

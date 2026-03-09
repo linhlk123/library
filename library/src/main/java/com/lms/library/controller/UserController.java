@@ -23,8 +23,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
-
-
 @RestController
 @RequestMapping("api/v1/users")
 @RequiredArgsConstructor
@@ -33,33 +31,29 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
     private UserService userService;
 
-    // Endpoint để tạo người dùng mới
+    // Endpoint to create a new user
     @PostMapping
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))
                 .build();
     }
-    
-    // Endpoint để lấy danh sách tất cả người dùng
+
+    // Endpoint to get all users
     @GetMapping
     ApiResponse<List<UserResponse>> getAllUsers() {
-        // Log thong tin người dùng đã xác thực
+        // Log authenticated user info
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        
+
         log.info("Authenticated user: {}", authentication.getName());
-        authentication.getAuthorities().forEach(authority -> 
-            log.info("Authority: {}", authority.getAuthority())
-        );
+        authentication.getAuthorities().forEach(authority -> log.info("Authority: {}", authority.getAuthority()));
 
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getAllUsers())
                 .build();
     }
 
-
-
-    // Endpoint để lấy thông tin người dùng theo ID
+    // Endpoint to get user by ID
     @GetMapping("/{id}")
     ApiResponse<UserResponse> getUserById(@PathVariable("id") String id) {
         return ApiResponse.<UserResponse>builder()
@@ -67,7 +61,7 @@ public class UserController {
                 .build();
     }
 
-    // Endpoint để cập nhật thông tin người dùng
+    // Endpoint to update user
     @PutMapping("/{id}")
     ApiResponse<UserResponse> updateUser(@PathVariable("id") String id, @RequestBody UserUpdateRequest request) {
         return ApiResponse.<UserResponse>builder()
@@ -75,7 +69,7 @@ public class UserController {
                 .build();
     }
 
-    // Endpoint để xóa người dùng theo ID
+    // Endpoint to delete user by ID
     @DeleteMapping("/{id}")
     ApiResponse<String> deleteUser(@PathVariable("id") String id) {
         userService.deleteUser(id);
@@ -89,5 +83,5 @@ public class UserController {
                 .result(userService.getUserById(userId))
                 .build();
     }
-    
+
 }

@@ -1,72 +1,71 @@
-    package com.lms.library.config;
-    import javax.crypto.SecretKey;
-    import javax.crypto.spec.SecretKeySpec;
+package com.lms.library.config;
 
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.beans.factory.annotation.Value;
-    import org.springframework.context.annotation.Bean;
-    import org.springframework.context.annotation.Configuration;
-    import org.springframework.http.HttpMethod;
-    import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-    import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-    import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-    import org.springframework.security.crypto.password.PasswordEncoder;
-    import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
-    import org.springframework.security.oauth2.jwt.JwtDecoder;
-    import org.springframework.security.oauth2.jwt.JwtException;
-    import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-    import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-    import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-    import org.springframework.security.web.SecurityFilterChain;
-    import com.lms.library.dto.request.IntrospectRequest;
-    import com.lms.library.enums.Role;
-    import com.lms.library.service.AuthenticationService;
-    
-    @Configuration
-    @EnableWebSecurity
-    @EnableMethodSecurity
-    public class SecurityConfig {
-        
-        @Autowired
-        private CustomJwtDecoder customJwtDecoder;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
-        //Định nghĩa các endpoint công khai không yêu cầu xác thực
-        private final String[] PUBLIC_ENDPOINTS = {
-                "/api/v1/users",
-                "/api/v1/auth/token",
-                "/api/v1/auth/introspect",
-                "/api/v1/auth/refresh"
-        };
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtException;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.web.SecurityFilterChain;
+import com.lms.library.dto.request.IntrospectRequest;
+import com.lms.library.enums.Role;
+import com.lms.library.service.AuthenticationService;
 
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
+public class SecurityConfig {
 
-        //Cấu hình các endpoint công khai và bảo vệ các endpoint khác
-        @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-            http.authorizeHttpRequests(request ->
-                request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority(Role.ADMIN.name())
-                    .anyRequest().authenticated());
-            http.oauth2ResourceServer(oauth2 -> oauth2
+    @Autowired
+    private CustomJwtDecoder customJwtDecoder;
+
+    // Public endpoints that do not require authentication
+    private final String[] PUBLIC_ENDPOINTS = {
+            "/api/v1/users",
+            "/api/v1/auth/token",
+            "/api/v1/auth/introspect",
+            "/api/v1/auth/refresh"
+    };
+
+    // Configure public endpoints and protect all others
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority(Role.ADMIN.name())
+                .anyRequest().authenticated());
+        http.oauth2ResourceServer(oauth2 -> oauth2
                 .jwt(jwtConfigurer -> jwtConfigurer
-                    .decoder(customJwtDecoder)
-                    .jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
-            
-            http.exceptionHandling(exception -> exception
+                        .decoder(customJwtDecoder)
+                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
                 .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
 
-            http.csrf(csrf -> csrf.disable());
-            return http.build();
-        }
+        http.exceptionHandling(exception -> exception
+                .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
 
-        @Bean
-        JwtAuthenticationConverter jwtAuthenticationConverter() {
-            JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-            grantedAuthoritiesConverter.setAuthorityPrefix("");
-            JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-            jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
-            return jwtAuthenticationConverter;
-        }
-
+        http.csrf(csrf -> csrf.disable());
+        return http.build();
     }
+
+    @Bean
+    JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthorityPrefix("");
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
+    }
+
+}
