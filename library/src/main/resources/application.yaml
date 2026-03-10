@@ -27,5 +27,5 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
 gemini:
-  api-key: "AIzaSyCV8G9vUHGOEy60NIVwLJf4mFnznZOIcvI"
+  api-key: ${GEMINI_API_KEY}
   url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
