@@ -1,14 +1,14 @@
 package com.lms.library.ai_chatbot;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class GeminiService {
@@ -29,8 +29,8 @@ public class GeminiService {
 
     private void loadPromptConfig() {
         try {
-            byte[] byteData = getClass().getResourceAsStream("project_prompt.json").readAllBytes();
-
+            ClassPathResource resource = new ClassPathResource("project_prompt.json");
+            byte[] byteData = resource.getInputStream().readAllBytes();
             this.systemInstruction = new String(byteData, StandardCharsets.UTF_8);
             System.out.println("Successfully loaded full context for BiblioBot!");
         } catch (Exception e) {
