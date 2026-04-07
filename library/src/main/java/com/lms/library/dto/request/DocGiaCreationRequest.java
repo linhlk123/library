@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DocGiaRequest {
+public class DocGiaCreationRequest {
 
     Integer maLoaiDocGia;
     String hoTen;
