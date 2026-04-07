@@ -3,7 +3,7 @@ server:
   servlet:
     context-path:
 spring:
-  datasource: 
+  datasource:
     url: jdbc:mysql://library-linhluutk-3a5e.a.aivencloud.com:22078/library?ssl-mode=REQUIRED
     username: avnadmin
     password: ${AIVEN_DB_PASSWORD:AVNS_Yv-yeZuzVaPSSsBate3}
@@ -15,9 +15,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-
 jwt:
-    signer-key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7VJTUt9Us8cKj"
+  signer-key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7VJTUt9Us8cKj"
 
 logging:
   level:
