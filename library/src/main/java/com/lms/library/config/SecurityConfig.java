@@ -45,7 +45,7 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority(Role.USER.name())
                                 .anyRequest().authenticated());
                 http.oauth2ResourceServer(oauth2 -> oauth2
                                 .jwt(jwtConfigurer -> jwtConfigurer

@@ -1,4 +1,5 @@
 package com.lms.library.dto.request;
+
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.Size;
@@ -14,13 +15,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
-public class UserUpdateRequest {
-
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    String password;
-    String firstName;
-    String lastName;
-    LocalDate dob;
-    
+public class NguoiDungCreationRequest {
+    String tenDangNhap;
+    String matKhau;
+    String hoTen;
+    LocalDate ngaySinh;
+    String diaChi;
+    String email;
+    String tenVaiTro;
 }

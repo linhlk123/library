@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.library.dto.request.ApiResponse;
-import com.lms.library.dto.request.PermissionRequest;
-import com.lms.library.dto.response.PermissionResponse;
-import com.lms.library.service.PermissionService;
+import com.lms.library.dto.request.PhanQuyenRequest;
+import com.lms.library.dto.response.PhanQuyenResponse;
+import com.lms.library.service.PhanQuyenService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,19 +26,19 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class PermissionController {
-    private PermissionService permissionService;
+public class PhanQuyenController {
+    private PhanQuyenService permissionService;
 
     @PostMapping
-    ApiResponse<PermissionResponse> createPermission(@RequestBody @Valid PermissionRequest request) {
-        return ApiResponse.<PermissionResponse>builder()
+    ApiResponse<PhanQuyenResponse> createPermission(@RequestBody @Valid PhanQuyenRequest request) {
+        return ApiResponse.<PhanQuyenResponse>builder()
                 .result(permissionService.create(request))
                 .build();
     }
 
     @GetMapping
-    ApiResponse<List<PermissionResponse>> getAllPermissions() {
-        return ApiResponse.<List<PermissionResponse>>builder()
+    ApiResponse<List<PhanQuyenResponse>> getAllPermissions() {
+        return ApiResponse.<List<PhanQuyenResponse>>builder()
                 .result(permissionService.getAll())
                 .build();
     }

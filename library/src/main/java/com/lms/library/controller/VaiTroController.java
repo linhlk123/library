@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.library.dto.request.ApiResponse;
-import com.lms.library.dto.request.RoleRequest;
-import com.lms.library.dto.response.RoleResponse;
-import com.lms.library.service.RoleService;
+import com.lms.library.dto.request.VaiTroRequest;
+import com.lms.library.dto.response.VaiTroResponse;
+import com.lms.library.service.VaiTroService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,19 +25,19 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class RoleController {
-    RoleService roleService;
+public class VaiTroController {
+    VaiTroService roleService;
 
     @PostMapping
-    ApiResponse<RoleResponse> createRole(@RequestBody @Valid RoleRequest request) {
-        return ApiResponse.<RoleResponse>builder()
+    ApiResponse<VaiTroResponse> createRole(@RequestBody @Valid VaiTroRequest request) {
+        return ApiResponse.<VaiTroResponse>builder()
                 .result(roleService.create(request))
                 .build();
     }
 
     @GetMapping
-    ApiResponse<List<RoleResponse>> getAllRoles() {
-        return ApiResponse.<List<RoleResponse>>builder()
+    ApiResponse<List<VaiTroResponse>> getAllRoles() {
+        return ApiResponse.<List<VaiTroResponse>>builder()
                 .result(roleService.getAll())
                 .build();
     }

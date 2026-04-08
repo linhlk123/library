@@ -2,6 +2,7 @@ package com.lms.library.dto.request;
 
 import java.util.Set;
 
+import com.lms.library.dto.request.PhanQuyenRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -12,8 +13,8 @@ import lombok.AccessLevel;
 @NoArgsConstructor  
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RoleRequest {
-    String name;
-    String description;
-    Set<PermissionRequest> permissions;
+public class VaiTroRequest {
+    String tenVaiTro;
+    String moTaVaiTro;
+    Set<PhanQuyenRequest> phanQuyen;
 }

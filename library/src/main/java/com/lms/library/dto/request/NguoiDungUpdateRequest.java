@@ -10,22 +10,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
-public class UserCreationRequest {
-    @Size(min = 3, message = "NAME_TOO_SHORT")
-    String username;
-
-    @Size(min = 8, message = "PASSWORD_TOO_SHORT")
-    String password;
-    String firstName;
-    String lastName;
-    LocalDate dob;
-
+public class NguoiDungUpdateRequest {
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    String matKhau;
+    String hoTen;
+    LocalDate ngaySinh;
+    String diaChi;
+    String email;
 }
-   

@@ -8,10 +8,10 @@ import lombok.Data;
 import lombok.AccessLevel;
 
 @Data
-@NoArgsConstructor  
+@NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PermissionRequest {
-    String name;
-    String description;
+public class PhanQuyenRequest {
+    String tenQuyen;
+    String moTaQuyenHan;
 }

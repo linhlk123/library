@@ -22,7 +22,7 @@ public class DocGiaMapper {
                 .ngayLapThe(docGia.getNgayLapThe())
                 .ngayHetHan(docGia.getNgayHetHan())
                 .tongNo(docGia.getTongNo())
-                .tenVaiTro(docGia.getRole() != null ? docGia.getRole().getName() : null)
+                .tenVaiTro(docGia.getRole() != null ? docGia.getRole().getTenVaiTro() : null)
                 .build();
     }
 }

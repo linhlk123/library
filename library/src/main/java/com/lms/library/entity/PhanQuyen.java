@@ -13,8 +13,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-public class Permission {
+public class PhanQuyen {
     @Id
-    String name;
-    String description;
+    String tenQuyen;
+    String moTaQuyenHan;
 }
