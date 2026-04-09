@@ -55,7 +55,6 @@ public class DocGia {
     // Role role;
 
     @ManyToOne
-    // @JoinColumn(name = "name", nullable = false)
-    @JoinColumn(name = "TenVaiTro", referencedColumnName = "name")
-    Role role;
+    @JoinColumn(name = "TenVaiTro", referencedColumnName = "tenVaiTro")
+    VaiTro role;
 }

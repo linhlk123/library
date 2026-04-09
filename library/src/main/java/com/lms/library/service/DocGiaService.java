@@ -5,11 +5,11 @@ import com.lms.library.dto.request.DocGiaUpdateRequest;
 import com.lms.library.dto.response.DocGiaResponse;
 import com.lms.library.entity.DocGia;
 import com.lms.library.entity.LoaiDocGia;
-import com.lms.library.entity.Role;
+import com.lms.library.entity.VaiTro;
 import com.lms.library.mapper.DocGiaMapper;
 import com.lms.library.repository.DocGiaRepository;
 import com.lms.library.repository.LoaiDocGiaRepository;
-import com.lms.library.repository.RoleRepository;
+import com.lms.library.repository.VaiTroRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.AccessLevel;
@@ -25,7 +25,7 @@ public class DocGiaService {
 
     DocGiaRepository docGiaRepository;
     LoaiDocGiaRepository loaiDocGiaRepository;
-    RoleRepository RoleRepository;
+    VaiTroRepository RoleRepository;
     DocGiaMapper docGiaMapper;
 
     public DocGiaResponse createDocGia(DocGiaCreationRequest request) {
@@ -36,7 +36,7 @@ public class DocGiaService {
         LoaiDocGia loaiDocGia = loaiDocGiaRepository.findById(request.getMaLoaiDocGia())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy loại độc giả"));
 
-        Role role = RoleRepository.findById("DOCGIA")
+        VaiTro role = RoleRepository.findById("DOCGIA")
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy vai trò DOCGIA"));
 
         DocGia docGia = DocGia.builder()

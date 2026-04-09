@@ -20,10 +20,10 @@ import com.lms.library.dto.request.RefreshRequest;
 import com.lms.library.dto.response.AuthenticationResponse;
 import com.lms.library.dto.response.IntrospectResponse;
 import com.lms.library.entity.InvalidatedToken;
-import com.lms.library.entity.User;
+import com.lms.library.entity.NguoiDung;
 import com.lms.library.exception.AppException;
 import com.lms.library.exception.ErrorCode;
-import com.lms.library.repository.UserRepository;
+import com.lms.library.repository.NguoiDungRepository;
 import com.lms.library.repository.InvalidatedTokenRepository;
 
 import com.nimbusds.jose.JOSEException;
@@ -47,7 +47,7 @@ import lombok.experimental.NonFinal;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationService {
 
-    final UserRepository userRepository;
+    final NguoiDungRepository userRepository;
     final PasswordEncoder passwordEncoder;
     final InvalidatedTokenRepository invalidatedTokenRepository;
 
@@ -56,11 +56,11 @@ public class AuthenticationService {
     private String SIGNER_KEY;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
+        NguoiDung user = userRepository.findByTenDangNhap(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         // Verify the password
-        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getMatKhau());
         if (!authenticated) {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         }
@@ -88,11 +88,11 @@ public class AuthenticationService {
                 .build();
     }
 
-    private String buildScope(User user) {
+    private String buildScope(NguoiDung user) {
         StringJoiner stringJoiner = new StringJoiner(" ");
 
-        if (!CollectionUtils.isEmpty(user.getRoles())) {
-            user.getRoles().forEach(role -> stringJoiner.add("ROLE_" + role.getName()));
+        if (user.getVaiTro() != null) {
+            stringJoiner.add("ROLE_" + user.getVaiTro().getTenVaiTro());
         }
         return stringJoiner.toString();
     }
@@ -143,8 +143,8 @@ public class AuthenticationService {
         invalidatedTokenRepository.save(invalidatedToken);
 
         var id = signedJWT.getJWTClaimsSet().getSubject();
-        System.out.println("====== USER ID FROM TOKEN: " + id + " ======");
-        var user = userRepository.findById(id).orElseThrow(
+        System.out.println("====== TEN DANG NHAP FROM TOKEN: " + id + " ======");
+        var user = userRepository.findByTenDangNhap(id).orElseThrow(
                 () -> new AppException(ErrorCode.UNAUTHENTICATED));
 
         var token = generateToken(user);
@@ -156,11 +156,11 @@ public class AuthenticationService {
     }
 
     // Generate JWT token
-    private String generateToken(User user) {
+    private String generateToken(NguoiDung user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
         JWTClaimsSet claimsSet;
         claimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getId())
+                .subject(user.getTenDangNhap())
                 .issuer("com.lms.library")
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plus(24, ChronoUnit.HOURS).toEpochMilli())) // 24 hour expiration

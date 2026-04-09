@@ -142,7 +142,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"johndoe\",\n  \"password\": \"secret123\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"dob\": \"1995-08-15\"\n}",
+              "raw": "{\n  \"tenDangNhap\": \"johndoe\",\n  \"matKhau\": \"secret123\",\n  \"hoTen\": \"John Doe\",\n  \"ngaySinh\": \"1995-08-15\",\n  \"diaChi\": \"123 Main St\",\n  \"email\": \"john@example.com\",\n  \"tenVaiTro\": \"USER\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -178,7 +178,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"password\": \"newpassword123\",\n  \"firstName\": \"Johnny\",\n  \"lastName\": \"Doe\",\n  \"dob\": \"1995-08-15\"\n}",
+              "raw": "{\n  \"matKhau\": \"newpassword123\",\n  \"hoTen\": \"Johnny Doe\",\n  \"ngaySinh\": \"1995-08-15\",\n  \"diaChi\": \"123 Main St\",\n  \"email\": \"john@example.com\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -255,7 +255,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"READ_BOOK\",\n  \"description\": \"Allow reading books\"\n}",
+              "raw": "{\n  \"tenQuyen\": \"READ_BOOK\",\n  \"moTaQuyenHan\": \"Allow reading books\"\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -289,11 +289,11 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/permissions/:name",
+              "raw": "{{baseUrl}}/permissions/:tenQuyen",
               "host": ["{{baseUrl}}"],
-              "path": ["permissions", ":name"],
+              "path": ["permissions", ":tenQuyen"],
               "variable": [
-                { "key": "name", "value": "READ_BOOK", "description": "Permission name" }
+                { "key": "tenQuyen", "value": "READ_BOOK", "description": "Permission name" }
               ]
             },
             "description": "Deletes a permission by name. Returns null result."
@@ -314,7 +314,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"LIBRARIAN\",\n  \"description\": \"Library staff role\",\n  \"permissions\": [\n    { \"name\": \"READ_BOOK\", \"description\": \"Allow reading books\" }\n  ]\n}",
+              "raw": "{\n  \"tenVaiTro\": \"LIBRARIAN\",\n  \"moTaVaiTro\": \"Library staff role\",\n  \"phanQuyen\": [\n    { \"tenQuyen\": \"READ_BOOK\", \"moTaQuyenHan\": \"Allow reading books\" }\n  ]\n}",
               "options": { "raw": { "language": "json" } }
             },
             "url": {
@@ -348,11 +348,11 @@
               { "key": "Authorization", "value": "Bearer {{token}}" }
             ],
             "url": {
-              "raw": "{{baseUrl}}/roles/:name",
+              "raw": "{{baseUrl}}/roles/:tenVaiTro",
               "host": ["{{baseUrl}}"],
-              "path": ["roles", ":name"],
+              "path": ["roles", ":tenVaiTro"],
               "variable": [
-                { "key": "name", "value": "LIBRARIAN", "description": "Role name" }
+                { "key": "tenVaiTro", "value": "LIBRARIAN", "description": "Role name" }
               ]
             },
             "description": "Deletes a role by name. Returns null result."
