@@ -1,6 +1,6 @@
 package com.lms.library.enums;
 
-public enum Role {
+public enum VaiTro {
     USER, 
     DOCGIA
 }
