@@ -1,8 +1,9 @@
 package com.lms.library.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.lms.library.dto.response.DocGiaResponse;
 import com.lms.library.entity.DocGia;
-import org.springframework.stereotype.Component;
 
 @Component
 public class DocGiaMapper {
@@ -15,14 +16,14 @@ public class DocGiaMapper {
                 .maDocGia(docGia.getMaDocGia())
                 .maLoaiDocGia(docGia.getLoaiDocGia() != null ? docGia.getLoaiDocGia().getMaLoaiDocGia() : null)
                 .tenLoaiDocGia(docGia.getLoaiDocGia() != null ? docGia.getLoaiDocGia().getTenLoaiDocGia() : null)
-                .hoTen(docGia.getHoTen())
-                .ngaySinh(docGia.getNgaySinh())
-                .diaChi(docGia.getDiaChi())
-                .email(docGia.getEmail())
+                .hoTen(docGia.getNguoiDung() != null ? docGia.getNguoiDung().getHoTen() : null)
+                .email(docGia.getNguoiDung() != null ? docGia.getNguoiDung().getEmail() : null)
+                .diaChi(docGia.getNguoiDung() != null ? docGia.getNguoiDung().getDiaChi() : null)
+                .matKhau(docGia.getNguoiDung() != null ? docGia.getNguoiDung().getMatKhau() : null)
+                .tenVaiTro(docGia.getTenVaiTro())
                 .ngayLapThe(docGia.getNgayLapThe())
                 .ngayHetHan(docGia.getNgayHetHan())
                 .tongNo(docGia.getTongNo())
-                .tenVaiTro(docGia.getRole() != null ? docGia.getRole().getTenVaiTro() : null)
                 .build();
     }
 }

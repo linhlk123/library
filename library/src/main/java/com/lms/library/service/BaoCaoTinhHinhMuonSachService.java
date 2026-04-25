@@ -41,14 +41,14 @@ public class BaoCaoTinhHinhMuonSachService {
 
     public BaoCaoTinhHinhMuonSachResponse getById(Integer maBCTHMS) {
         BaoCaoTinhHinhMuonSach baoCao = repository.findById(maBCTHMS)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy báo cáo tình hình mượn sách"));
+                .orElseThrow(() -> new RuntimeException("Borrowing report not found"));
 
         return mapper.toResponse(baoCao);
     }
 
     public BaoCaoTinhHinhMuonSachResponse update(Integer maBCTHMS, BaoCaoTinhHinhMuonSachUpdateRequest request) {
         BaoCaoTinhHinhMuonSach baoCao = repository.findById(maBCTHMS)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy báo cáo tình hình mượn sách"));
+                .orElseThrow(() -> new RuntimeException("Borrowing report not found"));
 
         baoCao.setThang(request.getThang());
         baoCao.setNam(request.getNam());
@@ -59,7 +59,7 @@ public class BaoCaoTinhHinhMuonSachService {
 
     public void delete(Integer maBCTHMS) {
         if (!repository.existsById(maBCTHMS)) {
-            throw new RuntimeException("Không tìm thấy báo cáo tình hình mượn sách");
+            throw new RuntimeException("Borrowing report not found");
         }
 
         repository.deleteById(maBCTHMS);

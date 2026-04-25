@@ -31,11 +31,11 @@ public class BC_SachTraTreService {
         BC_SachTraTreId id = new BC_SachTraTreId(request.getNgay(), request.getMaCuonSach());
 
         if (bcSachTraTreRepository.existsById(id)) {
-            throw new RuntimeException("Bản ghi đã tồn tại cho ngày và cuốn sách này");
+            throw new RuntimeException("Record already exists for this date and book");
         }
 
         CuonSach cuonSach = cuonSachRepository.findById(request.getMaCuonSach())
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy cuốn sách"));
+                .orElseThrow(() -> new RuntimeException("Book not found"));
 
         BC_SachTraTre bcSachTraTre = BC_SachTraTre.builder()
                 .ngay(request.getNgay())
@@ -66,7 +66,7 @@ public class BC_SachTraTreService {
     @Transactional(readOnly = true)
     public List<BC_SachTraTreResponse> getByCuonSach(Integer maCuonSach) {
         if (!cuonSachRepository.existsById(maCuonSach)) {
-            throw new RuntimeException("Không tìm thấy cuốn sách");
+            throw new RuntimeException("Book not found");
         }
 
         return bcSachTraTreRepository.findByCuonSach_MaCuonSach(maCuonSach)
@@ -80,7 +80,7 @@ public class BC_SachTraTreService {
         BC_SachTraTreId id = new BC_SachTraTreId(ngay, maCuonSach);
 
         BC_SachTraTre bcSachTraTre = bcSachTraTreRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy bản ghi"));
+                .orElseThrow(() -> new RuntimeException("Record not found"));
 
         return bcSachTraTreMapper.toResponse(bcSachTraTre);
     }
@@ -91,7 +91,7 @@ public class BC_SachTraTreService {
         BC_SachTraTreId id = new BC_SachTraTreId(ngay, maCuonSach);
 
         BC_SachTraTre bcSachTraTre = bcSachTraTreRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy bản ghi"));
+                .orElseThrow(() -> new RuntimeException("Record not found"));
 
         if (request.getNgayMuon() != null) {
             bcSachTraTre.setNgayMuon(request.getNgayMuon());
@@ -109,7 +109,7 @@ public class BC_SachTraTreService {
         BC_SachTraTreId id = new BC_SachTraTreId(ngay, maCuonSach);
 
         if (!bcSachTraTreRepository.existsById(id)) {
-            throw new RuntimeException("Không tìm thấy bản ghi");
+            throw new RuntimeException("Record not found");
         }
 
         bcSachTraTreRepository.deleteById(id);

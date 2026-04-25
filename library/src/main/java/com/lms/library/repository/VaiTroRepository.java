@@ -8,4 +8,5 @@ public interface VaiTroRepository extends JpaRepository<VaiTro, String> {
 
     boolean existsByTenVaiTro(String tenVaiTro);
 
+    java.util.Optional<VaiTro> findByTenVaiTro(String tenVaiTro);
 }

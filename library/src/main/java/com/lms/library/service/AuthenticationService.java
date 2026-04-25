@@ -56,11 +56,11 @@ public class AuthenticationService {
     private String SIGNER_KEY;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        NguoiDung user = userRepository.findByTenDangNhap(request.getUsername())
+        NguoiDung user = userRepository.findByTenDangNhap(request.getTenDangNhap())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         // Verify the password
-        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getMatKhau());
+        boolean authenticated = passwordEncoder.matches(request.getMatKhau(), user.getMatKhau());
         if (!authenticated) {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         }

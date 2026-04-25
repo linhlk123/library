@@ -1,10 +1,15 @@
 package com.lms.library.dto.request;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
@@ -15,11 +20,12 @@ import java.time.LocalDate;
 public class PhieuMuonTraUpdateRequest {
 
     Integer maCuonSach;
-    Integer maDocGia;
+    String maDocGia;
     LocalDate ngayMuon;
     LocalDate ngayPhaiTra;
     LocalDate ngayTra;
     Integer soNgayMuon;
     BigDecimal tienPhat;
     String maNhanVien; // TenDangNhap
+    String trangThai; // PENDING, ACTIVE, REJECTED, RETURNED
 }

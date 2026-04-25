@@ -48,20 +48,20 @@ public class NguoiDungService {
         return userMapper.toUserResponse(user);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ROLE_STAFF')")
     public List<NguoiDungResponse> getAllUsers() {
         log.info("Getting all users");
         return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
     }
 
-    @PostAuthorize("returnObject.id == authentication.name or hasAuthority('USER')")
+    @PostAuthorize("returnObject.tenDangNhap == authentication.name or hasAuthority('ADMIN')")
     public NguoiDungResponse getUserById(String id) {
         log.info("Getting user by ID: {}", id);
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ROLE_STAFF') and #id == authentication.name")
     public NguoiDungResponse updateUser(String id, NguoiDungUpdateRequest request) {
         log.info("Updating user: {}", id);
         NguoiDung user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -69,7 +69,7 @@ public class NguoiDungService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'ROLE_STAFF') and #id == authentication.name")
     public void deleteUser(String id) {
         NguoiDung user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userRepository.delete(user);

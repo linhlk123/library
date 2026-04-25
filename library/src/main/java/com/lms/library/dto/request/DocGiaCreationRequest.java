@@ -1,9 +1,13 @@
 package com.lms.library.dto.request;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.time.LocalDate;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
@@ -12,12 +16,8 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DocGiaCreationRequest {
 
-    Integer maLoaiDocGia;
-    String hoTen;
-    LocalDate ngaySinh;
-    String diaChi;
-    String email;
-    String matKhau;
-    LocalDate ngayLapThe;
-    LocalDate ngayHetHan;
+    String maDocGia; // Username (tenDangNhap) - must exist in NGUOIDUNG table
+    Integer maLoaiDocGia; // Reference to LOAIDOCGIA
+    LocalDate ngayLapThe; // Card issuance date
+    LocalDate ngayHetHan; // Card expiration date
 }

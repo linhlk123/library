@@ -2,8 +2,6 @@ package com.lms.library.dto.response;
 
 import java.time.LocalDate;
 
-import com.lms.library.entity.VaiTro;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +19,5 @@ public class NguoiDungResponse {
     LocalDate ngaySinh;
     String diaChi;
     String email;
-    VaiTro vaiTro;
+    String vaiTro; // Role name from VaiTro.tenVaiTro
 }

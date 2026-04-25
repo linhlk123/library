@@ -1,5 +1,7 @@
 package com.lms.library.config;
 
+
+import org.springframework.security.config.Customizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +26,8 @@ public class SecurityConfig {
                         "/api/v1/users",
                         "/api/v1/auth/token",
                         "/api/v1/auth/introspect",
-                        "/api/v1/auth/refresh"
+                        "/api/v1/auth/refresh",
+                        "/api/v1/ai-chat/**"
         };
 
         // Configure public endpoints and protect all others
@@ -32,7 +35,7 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
                                 .permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority("USER")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority("ROLE_STAFF")
                                 .anyRequest().authenticated());
                 http.oauth2ResourceServer(oauth2 -> oauth2
                                 .jwt(jwtConfigurer -> jwtConfigurer
@@ -43,7 +46,9 @@ public class SecurityConfig {
                 http.exceptionHandling(exception -> exception
                                 .authenticationEntryPoint(new JwtAuthenticationEntryPoint()));
 
-                http.csrf(csrf -> csrf.disable());
+                http
+                        .cors(Customizer.withDefaults())
+                        .csrf(csrf -> csrf.disable());
                 return http.build();
         }
 

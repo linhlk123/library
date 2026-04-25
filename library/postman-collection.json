@@ -2,12 +2,12 @@
   "info": {
     "name": "Library Management System API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "REST API contract for Authentication and User Management. JWT-based, roles: USER / ADMIN. All responses wrapped in ApiResponse<T>."
+    "description": "Complete Postman collection generated from all Spring controllers in the library project."
   },
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8080/library",
+      "value": "http://localhost:8080",
       "type": "string"
     },
     {
@@ -39,19 +39,32 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"johndoe\",\n  \"password\": \"secret123\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "raw": "{\n  \"tenDangNhap\": \"johndoe\",\n  \"matKhau\": \"secret123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/token",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "auth", "token"]
-            },
-            "description": "Authenticate and receive a JWT token. The test script auto-saves the token to the `token` collection variable."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "token"
+              ]
+            }
           }
         },
         {
@@ -59,19 +72,32 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"token\": \"{{token}}\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/introspect",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "auth", "introspect"]
-            },
-            "description": "Verify whether a JWT token is valid. Returns { valid: boolean }."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "introspect"
+              ]
+            }
           }
         },
         {
@@ -93,19 +119,32 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"token\": \"{{token}}\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/refresh",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "auth", "refresh"]
-            },
-            "description": "Exchange a valid JWT token for a new one. The old token is invalidated. The test script auto-saves the new token to the `token` collection variable."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
           }
         },
         {
@@ -113,19 +152,32 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"token\": \"{{token}}\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/auth/logout",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "auth", "logout"]
-            },
-            "description": "Invalidate the current JWT token (logout). Returns null result."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
+            }
           }
         }
       ]
@@ -138,19 +190,157 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"tenDangNhap\": \"johndoe\",\n  \"matKhau\": \"secret123\",\n  \"hoTen\": \"John Doe\",\n  \"ngaySinh\": \"1995-08-15\",\n  \"diaChi\": \"123 Main St\",\n  \"email\": \"john@example.com\",\n  \"tenVaiTro\": \"USER\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/users",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "users"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update User by ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"matKhau\": \"newpassword123\",\n  \"hoTen\": \"Updated Name\",\n  \"ngaySinh\": \"1995-08-15\",\n  \"diaChi\": \"Updated Address\",\n  \"email\": \"updated@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "description": "Public endpoint. Creates a new user account. Returns UserResponse."
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete User by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/users/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
           }
         },
         {
@@ -158,86 +348,23 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/api/v1/users/me",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "users", "me"]
-            },
-            "description": "Requires USER role. Returns the profile of the currently authenticated user."
-          }
-        },
-        {
-          "name": "Update My Profile",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"matKhau\": \"newpassword123\",\n  \"hoTen\": \"Johnny Doe\",\n  \"ngaySinh\": \"1995-08-15\",\n  \"diaChi\": \"123 Main St\",\n  \"email\": \"john@example.com\"\n}",
-              "options": { "raw": { "language": "json" } }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/users/me",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "users", "me"]
-            },
-            "description": "Requires USER role. Updates the authenticated user's own profile."
-          }
-        },
-        {
-          "name": "Get All Users (ADMIN)",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/users",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "users"]
-            },
-            "description": "Requires ADMIN role. Returns a list of all registered users."
-          }
-        },
-        {
-          "name": "Get User by ID (ADMIN)",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/users/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "users", ":id"],
-              "variable": [
-                { "key": "id", "value": "a1b2c3d4", "description": "User UUID" }
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
               ]
-            },
-            "description": "Requires ADMIN role. Returns a single user by their UUID."
-          }
-        },
-        {
-          "name": "Delete User (ADMIN)",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/v1/users/:id",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "users", ":id"],
-              "variable": [
-                { "key": "id", "value": "a1b2c3d4", "description": "User UUID" }
-              ]
-            },
-            "description": "Requires ADMIN role. Deletes a user by UUID. Returns null result."
+            }
           }
         }
       ]
@@ -250,20 +377,33 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"tenQuyen\": \"READ_BOOK\",\n  \"moTaQuyenHan\": \"Allow reading books\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/permissions",
-              "host": ["{{baseUrl}}"],
-              "path": ["permissions"]
-            },
-            "description": "Creates a new permission. Returns PermissionResponse."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions"
+              ]
+            }
           }
         },
         {
@@ -271,14 +411,20 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/permissions",
-              "host": ["{{baseUrl}}"],
-              "path": ["permissions"]
-            },
-            "description": "Returns a list of all permissions."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions"
+              ]
+            }
           }
         },
         {
@@ -286,17 +432,27 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
-              "raw": "{{baseUrl}}/permissions/:tenQuyen",
-              "host": ["{{baseUrl}}"],
-              "path": ["permissions", ":tenQuyen"],
+              "raw": "{{baseUrl}}/permissions/:name",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "permissions",
+                ":name"
+              ],
               "variable": [
-                { "key": "tenQuyen", "value": "READ_BOOK", "description": "Permission name" }
+                {
+                  "key": "name",
+                  "value": "READ_BOOK"
+                }
               ]
-            },
-            "description": "Deletes a permission by name. Returns null result."
+            }
           }
         }
       ]
@@ -309,20 +465,33 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"tenVaiTro\": \"LIBRARIAN\",\n  \"moTaVaiTro\": \"Library staff role\",\n  \"phanQuyen\": [\n    { \"tenQuyen\": \"READ_BOOK\", \"moTaQuyenHan\": \"Allow reading books\" }\n  ]\n}",
-              "options": { "raw": { "language": "json" } }
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/roles",
-              "host": ["{{baseUrl}}"],
-              "path": ["roles"]
-            },
-            "description": "Creates a new role with associated permissions. Returns RoleResponse."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ]
+            }
           }
         },
         {
@@ -330,14 +499,20 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{baseUrl}}/roles",
-              "host": ["{{baseUrl}}"],
-              "path": ["roles"]
-            },
-            "description": "Returns a list of all roles."
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles"
+              ]
+            }
           }
         },
         {
@@ -345,17 +520,27 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
-              "raw": "{{baseUrl}}/roles/:tenVaiTro",
-              "host": ["{{baseUrl}}"],
-              "path": ["roles", ":tenVaiTro"],
+              "raw": "{{baseUrl}}/roles/:name",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "roles",
+                ":name"
+              ],
               "variable": [
-                { "key": "tenVaiTro", "value": "LIBRARIAN", "description": "Role name" }
+                {
+                  "key": "name",
+                  "value": "LIBRARIAN"
+                }
               ]
-            },
-            "description": "Deletes a role by name. Returns null result."
+            }
           }
         }
       ]
@@ -368,20 +553,2857 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"message\": \"Bạn có thể giới thiệu sách hay không?\"\n}",
-              "options": { "raw": { "language": "json" } }
+              "raw": "{\n  \"message\": \"Recommend a good book\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/ai-chat",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "v1", "ai-chat"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "ai-chat"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "LoaiDocGia",
+      "item": [
+        {
+          "name": "Create LoaiDocGia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenLoaiDocGia\": \"Student\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
-            "description": "Send a message to the Gemini-powered AI chatbot. Accepts a JSON body with a 'message' field. Returns the AI response as raw JSON string."
+            "url": {
+              "raw": "{{baseUrl}}/api/loaidocgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "loaidocgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All LoaiDocGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/loaidocgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "loaidocgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get LoaiDocGia by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/loaidocgia/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "loaidocgia",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update LoaiDocGia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenLoaiDocGia\": \"Student\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/loaidocgia/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "loaidocgia",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete LoaiDocGia",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/loaidocgia/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "loaidocgia",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DocGia",
+      "item": [
+        {
+          "name": "Create DocGia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDocGia\": \"linhluutk\", \"maLoaiDocGia\": 1, \"ngayLapThe\": \"2024-01-01\", \"ngayHetHan\": \"2025-01-01\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/docgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "docgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All DocGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/docgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "docgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get DocGia by maDocGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/docgia/:maDocGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "docgia",
+                ":maDocGia"
+              ],
+              "variable": [
+                {
+                  "key": "maDocGia",
+                  "value": "linhluutk"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update DocGia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maLoaiDocGia\": 1, \"ngayLapThe\": \"2024-01-01\", \"ngayHetHan\": \"2025-01-01\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/docgia/:maDocGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "docgia",
+                ":maDocGia"
+              ],
+              "variable": [
+                {
+                  "key": "maDocGia",
+                  "value": "linhluutk"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete DocGia",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/docgia/:maDocGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "docgia",
+                ":maDocGia"
+              ],
+              "variable": [
+                {
+                  "key": "maDocGia",
+                  "value": "linhluutk"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ThamSo",
+      "item": [
+        {
+          "name": "Create ThamSo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenThamSo\": \"MAX_LOAN_DAYS\", \"giaTri\": \"30\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thamso",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thamso"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All ThamSo",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thamso",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thamso"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get ThamSo by tenThamSo",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thamso/:tenThamSo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thamso",
+                ":tenThamSo"
+              ],
+              "variable": [
+                {
+                  "key": "tenThamSo",
+                  "value": "SO_NGAY_MUON"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update ThamSo",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenThamSo\": \"MAX_LOAN_DAYS\", \"giaTri\": \"30\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thamso/:tenThamSo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thamso",
+                ":tenThamSo"
+              ],
+              "variable": [
+                {
+                  "key": "tenThamSo",
+                  "value": "SO_NGAY_MUON"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete ThamSo",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thamso/:tenThamSo",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thamso",
+                ":tenThamSo"
+              ],
+              "variable": [
+                {
+                  "key": "tenThamSo",
+                  "value": "SO_NGAY_MUON"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "TheLoai",
+      "item": [
+        {
+          "name": "Create TheLoai",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenTheLoai\": \"Fiction\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/theloai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "theloai"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All TheLoai",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/theloai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "theloai"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get TheLoai by maTheLoai",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/theloai/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "theloai",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update TheLoai",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenTheLoai\": \"Fiction\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/theloai/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "theloai",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete TheLoai",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/theloai/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "theloai",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "TacGia",
+      "item": [
+        {
+          "name": "Create TacGia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenTacGia\": \"John Smith\", \"ngaySinh\": \"1950-10-25\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tacgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tacgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All TacGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tacgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tacgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get TacGia by maTacGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tacgia/:maTacGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tacgia",
+                ":maTacGia"
+              ],
+              "variable": [
+                {
+                  "key": "maTacGia",
+                  "value": "TG001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update TacGia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenTacGia\": \"John Smith\", \"ngaySinh\": \"1950-10-25\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/tacgia/:maTacGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tacgia",
+                ":maTacGia"
+              ],
+              "variable": [
+                {
+                  "key": "maTacGia",
+                  "value": "TG001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete TacGia",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tacgia/:maTacGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tacgia",
+                ":maTacGia"
+              ],
+              "variable": [
+                {
+                  "key": "maTacGia",
+                  "value": "TG001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "DauSach",
+      "item": [
+        {
+          "name": "Create DauSach",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenDauSach\": \"Book Title\", \"maTheLoai\": 1, \"anhBiaUrl\": \"https://example.com/image.jpg\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All DauSach",
+          "request": {
+            "method": "GET",  
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get DauSach by maDauSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach/:maDauSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach",
+                ":maDauSach"
+              ],
+              "variable": [
+                {
+                  "key": "maDauSach",
+                  "value": "DS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get DauSach by maTheLoai",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach/theloai/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach",
+                "theloai",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update DauSach",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenDauSach\": \"Updated Title\", \"maTheLoai\": 1, \"anhBiaUrl\": \"https://example.com/image.jpg\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach/:maDauSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach",
+                ":maDauSach"
+              ],
+              "variable": [
+                {
+                  "key": "maDauSach",
+                  "value": "DS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload Image for DauSach",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "maDauSach",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach/upload-image",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach",
+                "upload-image"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete DauSach (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach/:maDauSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach",
+                ":maDauSach"
+              ],
+              "variable": [
+                {
+                  "key": "maDauSach",
+                  "value": "DS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Multiple DauSach (Batch - Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[1, 2, 3]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/dausach/batch",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dausach",
+                "batch"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sach",
+      "item": [
+        {
+          "name": "Create Sach",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Sach (with Pagination)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sach?page=1&size=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sach"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based, default: 1)"
+                },
+                {
+                  "key": "size",
+                  "value": "10",
+                  "description": "Number of items per page (default: 10)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Sach by maSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sach/:maSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sach",
+                ":maSach"
+              ],
+              "variable": [
+                {
+                  "key": "maSach",
+                  "value": "S001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Sach by maDauSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sach/dausach/:maDauSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sach",
+                "dausach",
+                ":maDauSach"
+              ],
+              "variable": [
+                {
+                  "key": "maDauSach",
+                  "value": "DS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Sach",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/sach/:maSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sach",
+                ":maSach"
+              ],
+              "variable": [
+                {
+                  "key": "maSach",
+                  "value": "S001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Sach",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/sach/:maSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sach",
+                ":maSach"
+              ],
+              "variable": [
+                {
+                  "key": "maSach",
+                  "value": "S001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CuonSach",
+      "item": [
+        {
+          "name": "Create CuonSach",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cuonsach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cuonsach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All CuonSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cuonsach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cuonsach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get CuonSach by maCuonSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cuonsach/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cuonsach",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get CuonSach by maSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cuonsach/sach/:maSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cuonsach",
+                "sach",
+                ":maSach"
+              ],
+              "variable": [
+                {
+                  "key": "maSach",
+                  "value": "S001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update CuonSach",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/cuonsach/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cuonsach",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete CuonSach",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/cuonsach/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "cuonsach",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CT_TacGia",
+      "item": [
+        {
+          "name": "Create CT_TacGia",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tenTacGia\": \"John Smith\", \"ngaySinh\": \"1950-10-25\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ct_tacgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ct_tacgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All CT_TacGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ct_tacgia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ct_tacgia"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get CT_TacGia by maDauSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ct_tacgia/dausach/:maDauSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ct_tacgia",
+                "dausach",
+                ":maDauSach"
+              ],
+              "variable": [
+                {
+                  "key": "maDauSach",
+                  "value": "DS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get CT_TacGia by maTacGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ct_tacgia/tacgia/:maTacGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ct_tacgia",
+                "tacgia",
+                ":maTacGia"
+              ],
+              "variable": [
+                {
+                  "key": "maTacGia",
+                  "value": "TG001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete CT_TacGia",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ct_tacgia/:maDauSach/:maTacGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ct_tacgia",
+                ":maDauSach",
+                ":maTacGia"
+              ],
+              "variable": [
+                {
+                  "key": "maDauSach",
+                  "value": "DS001"
+                },
+                {
+                  "key": "maTacGia",
+                  "value": "TG001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PhieuMuonTra",
+      "item": [
+        {
+          "name": "Create PhieuMuonTra",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maCuonSach\": 1, \"maDocGia\": \"DG001\", \"ngayMuon\": \"2024-04-19\", \"ngayPhaiTra\": \"2024-05-19\", \"soNgayMuon\": 30, \"tienPhat\": 0, \"maNhanVien\": \"staff\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/phieumuontra",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieumuontra"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All PhieuMuonTra",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieumuontra",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieumuontra"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get PhieuMuonTra by soPhieu",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieumuontra/:soPhieu",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieumuontra",
+                ":soPhieu"
+              ],
+              "variable": [
+                {
+                  "key": "soPhieu",
+                  "value": "PMT001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get PhieuMuonTra by maDocGia",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieumuontra/docgia/:maDocGia",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieumuontra",
+                "docgia",
+                ":maDocGia"
+              ],
+              "variable": [
+                {
+                  "key": "maDocGia",
+                  "value": "DG001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update PhieuMuonTra",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maCuonSach\": 1, \"maDocGia\": \"DG001\", \"ngayMuon\": \"2024-04-19\", \"ngayPhaiTra\": \"2024-05-19\", \"soNgayMuon\": 30, \"tienPhat\": 0, \"maNhanVien\": \"staff\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/phieumuontra/:soPhieu",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieumuontra",
+                ":soPhieu"
+              ],
+              "variable": [
+                {
+                  "key": "soPhieu",
+                  "value": "PMT001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete PhieuMuonTra",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieumuontra/:soPhieu",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieumuontra",
+                ":soPhieu"
+              ],
+              "variable": [
+                {
+                  "key": "soPhieu",
+                  "value": "PMT001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PhieuThuTienPhat",
+      "item": [
+        {
+          "name": "Create PhieuThuTienPhat",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDocGia\": \"DG001\", \"ngayThu\": \"2024-04-19\", \"soTienThu\": 50000, \"conLai\": 100000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/phieuthutienphat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieuthutienphat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All PhieuThuTienPhat",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieuthutienphat",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieuthutienphat"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get PhieuThuTienPhat by soPTT",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieuthutienphat/:soPTT",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieuthutienphat",
+                ":soPTT"
+              ],
+              "variable": [
+                {
+                  "key": "soPTT",
+                  "value": "PTT001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update PhieuThuTienPhat",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDocGia\": \"DG001\", \"ngayThu\": \"2024-04-19\", \"soTienThu\": 50000, \"conLai\": 100000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/phieuthutienphat/:soPTT",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieuthutienphat",
+                ":soPTT"
+              ],
+              "variable": [
+                {
+                  "key": "soPTT",
+                  "value": "PTT001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete PhieuThuTienPhat",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/phieuthutienphat/:soPTT",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "phieuthutienphat",
+                ":soPTT"
+              ],
+              "variable": [
+                {
+                  "key": "soPTT",
+                  "value": "PTT001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "BaoCaoTinhHinhMuonSach",
+      "item": [
+        {
+          "name": "Create BaoCaoTinhHinhMuonSach",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bctinhhinhmuonsach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bctinhhinhmuonsach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All BaoCaoTinhHinhMuonSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bctinhhinhmuonsach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bctinhhinhmuonsach"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get BaoCaoTinhHinhMuonSach by maBCTHMS",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bctinhhinhmuonsach/:maBCTHMS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bctinhhinhmuonsach",
+                ":maBCTHMS"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update BaoCaoTinhHinhMuonSach",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bctinhhinhmuonsach/:maBCTHMS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bctinhhinhmuonsach",
+                ":maBCTHMS"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete BaoCaoTinhHinhMuonSach",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bctinhhinhmuonsach/:maBCTHMS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bctinhhinhmuonsach",
+                ":maBCTHMS"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CTBC_THMS",
+      "item": [
+        {
+          "name": "Create CTBC_THMS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maBCTHMS\": 1, \"maTheLoai\": 1, \"soLuotMuon\": 25, \"tiLe\": 50}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ctbc-thms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ctbc-thms"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All CTBC_THMS",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ctbc-thms",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ctbc-thms"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get CTBC_THMS by maBCTHMS",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ctbc-thms/baocao/:maBCTHMS",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ctbc-thms",
+                "baocao",
+                ":maBCTHMS"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get CTBC_THMS by key",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ctbc-thms/:maBCTHMS/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ctbc-thms",
+                ":maBCTHMS",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                },
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update CTBC_THMS",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maBCTHMS\": 1, \"maTheLoai\": 1, \"soLuotMuon\": 25, \"tiLe\": 50}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ctbc-thms/:maBCTHMS/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ctbc-thms",
+                ":maBCTHMS",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                },
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete CTBC_THMS",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/ctbc-thms/:maBCTHMS/:maTheLoai",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "ctbc-thms",
+                ":maBCTHMS",
+                ":maTheLoai"
+              ],
+              "variable": [
+                {
+                  "key": "maBCTHMS",
+                  "value": "BC001"
+                },
+                {
+                  "key": "maTheLoai",
+                  "value": "TL001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "BC_SachTraTre",
+      "item": [
+        {
+          "name": "Create BC_SachTraTre",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All BC_SachTraTre",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get BC_SachTraTre by ngay",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre/ngay/:ngay",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre",
+                "ngay",
+                ":ngay"
+              ],
+              "variable": [
+                {
+                  "key": "ngay",
+                  "value": "2026-01-15"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get BC_SachTraTre by maCuonSach",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre/cuonsach/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre",
+                "cuonsach",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get BC_SachTraTre by key",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre/:ngay/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre",
+                ":ngay",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "ngay",
+                  "value": "2026-01-15"
+                },
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update BC_SachTraTre",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"maDauSach\": 1, \"maTheLoai\": 1, \"nhaXuatBan\": \"Publisher Inc\", \"namXuatBan\": 2020, \"soLuong\": 10, \"giaTien\": 150000}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre/:ngay/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre",
+                ":ngay",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "ngay",
+                  "value": "2026-01-15"
+                },
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete BC_SachTraTre",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/bc_sachtratre/:ngay/:maCuonSach",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "bc_sachtratre",
+                ":ngay",
+                ":maCuonSach"
+              ],
+              "variable": [
+                {
+                  "key": "ngay",
+                  "value": "2026-01-15"
+                },
+                {
+                  "key": "maCuonSach",
+                  "value": "CS001"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ThongBao (Notifications)",
+      "item": [
+        {
+          "name": "Get My Notifications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                "me"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Unread Count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/me/unread-count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                "me",
+                "unread-count"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Notification by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tieuDe\": \"Sách mới được thêm\",\n  \"noiDung\": \"Sách 'Clean Code' vừa được thêm vào hệ thống\",\n  \"loaiThongBao\": \"SUCCESS\",\n  \"nguoiNhan\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Send Broadcast Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tieuDe\": \"Bảo trì hệ thống\",\n  \"noiDung\": \"Hệ thống sẽ bảo trì vào 22:00 hôm nay\",\n  \"loaiThongBao\": \"WARNING\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/broadcast",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                "broadcast"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark Notification as Read",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/:id/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                ":id",
+                "read"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark All Notifications as Read",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/read-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                "read-all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Notification",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/thongbao/:id",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "thongbao",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "1"
+                }
+              ]
+            }
           }
         }
       ]

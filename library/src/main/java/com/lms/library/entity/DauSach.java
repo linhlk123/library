@@ -25,4 +25,10 @@ public class DauSach {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaTheLoai", nullable = false)
     TheLoai theLoai;
+
+    @Column(name = "AnhBia", length = 500)
+    String anhBiaUrl;
+
+    @Column(name = "IsDeleted", columnDefinition = "BIT DEFAULT 0")
+    Boolean isDeleted;
 }

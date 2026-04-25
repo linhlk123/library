@@ -1,10 +1,14 @@
 package com.lms.library.dto.response;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @NoArgsConstructor
@@ -13,18 +17,17 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DocGiaResponse {
 
-    Integer maDocGia;
-    Integer maLoaiDocGia;
-    String tenLoaiDocGia;
+    String maDocGia; // Username (tenDangNhap) from NGUOIDUNG
+    Integer maLoaiDocGia; // Reference to LOAIDOCGIA
+    String tenLoaiDocGia; // Card type name
 
-    String hoTen;
-    LocalDate ngaySinh;
-    String diaChi;
-    String email;
+    String hoTen; // Full name from NGUOIDUNG
+    String email; // Email from NGUOIDUNG
+    String diaChi; // Address from NGUOIDUNG
+    String matKhau; // Password from NGUOIDUNG (masked in real APIs)
+    String tenVaiTro; // Role name from NGUOIDUNG.vaiTro
 
-    LocalDate ngayLapThe;
-    LocalDate ngayHetHan;
-    BigDecimal tongNo;
-
-    String tenVaiTro;
+    LocalDate ngayLapThe; // Card issuance date
+    LocalDate ngayHetHan; // Card expiration date
+    BigDecimal tongNo; // Fine amount
 }

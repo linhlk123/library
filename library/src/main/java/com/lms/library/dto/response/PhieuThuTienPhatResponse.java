@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class PhieuThuTienPhatResponse {
 
     Integer soPTT;
-    Integer maDocGia;
+    String maDocGia;
     String tenDocGia;
     LocalDate ngayThu;
     BigDecimal soTienThu;

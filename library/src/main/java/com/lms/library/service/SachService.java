@@ -1,7 +1,14 @@
 package com.lms.library.service;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
 import com.lms.library.dto.request.SachCreationRequest;
 import com.lms.library.dto.request.SachUpdateRequest;
+import com.lms.library.dto.response.PageResponseDTO;
 import com.lms.library.dto.response.SachResponse;
 import com.lms.library.entity.DauSach;
 import com.lms.library.entity.Sach;
@@ -11,9 +18,6 @@ import com.lms.library.repository.SachRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,22 +32,37 @@ public class SachService {
         DauSach dauSach = dauSachRepository.findById(request.getMaDauSach())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy đầu sách"));
 
+        Integer soLuong = request.getSoLuong();
+        if (soLuong == null) {
+            soLuong = 0;
+        }
+
         Sach sach = Sach.builder()
                 .dauSach(dauSach)
                 .nhaXuatBan(request.getNhaXuatBan())
                 .namXuatBan(request.getNamXuatBan())
-                .soLuong(request.getSoLuong() != null ? request.getSoLuong() : 0)
+                .soLuong(soLuong)
                 .giaTien(request.getGiaTien())
                 .build();
 
         return sachMapper.toSachResponse(sachRepository.save(sach));
     }
 
-    public List<SachResponse> getAllSach() {
-        return sachRepository.findAll()
-                .stream()
-                .map(sachMapper::toSachResponse)
-                .toList();
+    public PageResponseDTO<SachResponse> getAllSach(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size);
+
+        // Lấy Page<Sach> từ Spring Data JPA để không kéo toàn bộ dữ liệu ra một lần.
+        // Sau đó map từng phần tử của Page sang DTO để Frontend chỉ nhận đúng dữ liệu cần hiển thị.
+        Page<Sach> sachPage = sachRepository.findAll(pageRequest);
+        Page<SachResponse> responsePage = sachPage.map(sachMapper::toSachResponse);
+
+        return PageResponseDTO.<SachResponse>builder()
+                .content(responsePage.getContent())
+                .currentPage(responsePage.getNumber() + 1)
+                .totalPages(responsePage.getTotalPages())
+                .totalElements(responsePage.getTotalElements())
+                .pageSize(responsePage.getSize())
+                .build();
     }
 
     public SachResponse getSachById(Integer maSach) {

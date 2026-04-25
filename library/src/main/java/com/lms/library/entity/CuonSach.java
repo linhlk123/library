@@ -25,4 +25,7 @@ public class CuonSach {
 
     @Column(name = "TinhTrang", length = 100)
     String tinhTrang;
+
+    @Column(name = "IsDeleted", columnDefinition = "BIT DEFAULT 0")
+    Boolean isDeleted;
 }

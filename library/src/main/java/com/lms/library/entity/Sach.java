@@ -36,4 +36,7 @@ public class Sach {
 
     @Column(name = "GiaTien", precision = 12, scale = 2, columnDefinition = "DECIMAL(12,2) DEFAULT 0")
     BigDecimal giaTien;
+
+    @Column(name = "IsDeleted", columnDefinition = "BIT DEFAULT 0")
+    Boolean isDeleted;
 }

@@ -1,41 +1,44 @@
-// package com.lms.library.config;
+package com.lms.library.config;
 
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-// import org.springframework.boot.ApplicationRunner;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.crypto.password.PasswordEncoder;
+import com.lms.library.entity.VaiTro;
+import com.lms.library.entity.NguoiDung;
+import com.lms.library.repository.VaiTroRepository;
+import com.lms.library.repository.NguoiDungRepository;
 
-// import com.lms.library.entity.VaiTro;
-// import com.lms.library.entity.NguoiDung;
-// import com.lms.library.repository.VaiTroRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Configuration
+@Slf4j
+public class ApplicationInitConfig {
 
-// import lombok.extern.slf4j.Slf4j;
+    @Bean
+    ApplicationRunner applicationRunner(VaiTroRepository vaiTroRepository,
+            NguoiDungRepository nguoiDungRepository,
+            PasswordEncoder passwordEncoder) {
+        return args -> {
+            String staffRoleName = com.lms.library.enums.VaiTro.STAFF.name();
 
-// @Configuration
-// @Slf4j 
-// public class ApplicationInitConfig {
+            VaiTro staffVaiTro = vaiTroRepository.findByTenVaiTro(staffRoleName)
+                    .orElseGet(() -> vaiTroRepository.save(VaiTro.builder()
+                            .tenVaiTro(staffRoleName)
+                            .build()));
 
-//     @Bean
-//     ApplicationRunner applicationRunner(VaiTroRepository vaiTroRepository, PasswordEncoder passwordEncoder) {
-//         return args -> {
-//             if (vaiTroRepository.findByName(com.lms.library.enums.Role.ADMIN.name()).isEmpty()) {
-                
-//                 VaiTro adminRole = VaiTro.builder()
-//                         .name(com.lms.library.enums.Role.USER.name())
-//                         .build();
+            if (!nguoiDungRepository.existsByTenDangNhap("staff")) {
+                NguoiDung user = NguoiDung.builder()
+                        .tenDangNhap("staff")
+                        .matKhau(passwordEncoder.encode("Staff@123"))
+                        .vaiTro(staffVaiTro)
+                        .build();
+                nguoiDungRepository.save(user);
 
-//                 NguoiDung user = NguoiDung.builder()
-//                         .username("admin")
-//                         .password(passwordEncoder.encode("admin123"))
-//                         .role(adminRole) 
-//                         .build();
-
-//                 userRepository.save(user);
-                
-//                 log.warn("Admin user created with username 'admin' and password 'admin123', please change the password after first login.");
-//             }
-//         };
-//     }
-// }
+                log.warn(
+                        "Staff user created with username 'staff' and password 'Staff@123', please change the password after first login.");
+            }
+        };
+    }
+}

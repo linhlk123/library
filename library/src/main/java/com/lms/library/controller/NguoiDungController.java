@@ -2,6 +2,7 @@ package com.lms.library.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,7 +64,8 @@ public class NguoiDungController {
 
     // Endpoint to update user
     @PutMapping("/{id}")
-    ApiResponse<NguoiDungResponse> updateUser(@PathVariable("id") String id, @RequestBody NguoiDungUpdateRequest request) {
+    ApiResponse<NguoiDungResponse> updateUser(@PathVariable("id") String id,
+            @RequestBody NguoiDungUpdateRequest request) {
         return ApiResponse.<NguoiDungResponse>builder()
                 .result(nguoiDungService.updateUser(id, request))
                 .build();
@@ -76,11 +78,21 @@ public class NguoiDungController {
         return ApiResponse.<String>builder().result("User has been deleted").build();
     }
 
+    // Endpoint to get current user profile
     @GetMapping("/me")
     ApiResponse<NguoiDungResponse> getUser() {
         var userId = SecurityContextHolder.getContext().getAuthentication().getName();
         return ApiResponse.<NguoiDungResponse>builder()
                 .result(nguoiDungService.getUserById(userId))
+                .build();
+    }
+
+    // Endpoint to update current user profile
+    @PutMapping("/me")
+    ApiResponse<NguoiDungResponse> updateCurrentUser(@RequestBody NguoiDungUpdateRequest request) {
+        var userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ApiResponse.<NguoiDungResponse>builder()
+                .result(nguoiDungService.updateUser(userId, request))
                 .build();
     }
 

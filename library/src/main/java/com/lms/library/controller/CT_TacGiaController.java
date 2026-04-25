@@ -1,16 +1,24 @@
 package com.lms.library.controller;
 
-import com.lms.library.dto.request.CT_TacGiaCreationRequest;
+import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.lms.library.dto.response.CT_TacGiaResponse;
 import com.lms.library.service.CT_TacGiaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import com.lms.library.dto.request.CT_TacGiaCreationRequest;
 
-import java.util.List;
-
-@RestController
+@RequiredArgsConstructor 
+@RestController 
 @RequestMapping("/api/ct_tacgia")
-@RequiredArgsConstructor
+
+
 public class CT_TacGiaController {
 
     private final CT_TacGiaService ctTacGiaService;

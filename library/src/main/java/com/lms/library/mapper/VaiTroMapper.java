@@ -12,5 +12,5 @@ public interface VaiTroMapper {
     @Mapping(target = "danhSachPhanQuyen", source = "phanQuyen")
     VaiTro toRole(VaiTroRequest request);
 
-    VaiTroResponse toRoleResponse(VaiTro request);
+    VaiTroResponse toRoleResponse(VaiTro vaiTro);
 }

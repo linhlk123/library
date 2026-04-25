@@ -1,0 +1,189 @@
+{
+  "info": {
+    "_postman_id": "thamso-module-tests",
+    "name": "ThamSo Module - API Tests",
+    "description": "Test collection for ThamSo (Business Rules Parameters) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET All Parameters",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/thamso",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso"]
+        },
+        "description": "Get all ThamSo (business parameters)"
+      },
+      "response": []
+    },
+    {
+      "name": "GET Single Parameter - TuoiToiThieu",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/thamso/TuoiToiThieu",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso", "TuoiToiThieu"]
+        },
+        "description": "Get minimum age parameter"
+      },
+      "response": []
+    },
+    {
+      "name": "GET Single Parameter - TuoiToiDa",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/thamso/TuoiToiDa",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso", "TuoiToiDa"]
+        },
+        "description": "Get maximum age parameter"
+      },
+      "response": []
+    },
+    {
+      "name": "GET Single Parameter - SoNgayMuonToiDa",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/thamso/SoNgayMuonToiDa",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso", "SoNgayMuonToiDa"]
+        },
+        "description": "Get maximum borrow days"
+      },
+      "response": []
+    },
+    {
+      "name": "UPDATE Parameter - TuoiToiThieu",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"giaTri\": \"21\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/thamso/TuoiToiThieu",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso", "TuoiToiThieu"]
+        },
+        "description": "Update minimum age parameter"
+      },
+      "response": []
+    },
+    {
+      "name": "UPDATE Parameter - SoNgayMuonToiDa",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"giaTri\": \"7\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/thamso/SoNgayMuonToiDa",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso", "SoNgayMuonToiDa"]
+        },
+        "description": "Update maximum borrow days to 7"
+      },
+      "response": []
+    },
+    {
+      "name": "CREATE New Parameter",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tenThamSo\": \"SoPhutMuonToiDa\",\n  \"giaTri\": \"60\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/thamso",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso"]
+        },
+        "description": "Create a new parameter"
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE Parameter",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/thamso/SoPhutMuonToiDa",
+          "host": ["{{base_url}}"],
+          "path": ["api", "thamso", "SoPhutMuonToiDa"]
+        },
+        "description": "Delete a parameter"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

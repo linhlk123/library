@@ -31,4 +31,5 @@ public class VaiTro {
         inverseJoinColumns = @JoinColumn(name = "tenQuyen", referencedColumnName = "tenQuyen")
     )
     Set<PhanQuyen> danhSachPhanQuyen;
+
 }

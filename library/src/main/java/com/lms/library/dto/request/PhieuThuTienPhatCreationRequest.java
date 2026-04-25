@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PhieuThuTienPhatCreationRequest {
 
-    Integer maDocGia;
+    String maDocGia;
     LocalDate ngayThu;
     BigDecimal soTienThu;
     BigDecimal conLai;

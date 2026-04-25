@@ -28,7 +28,9 @@ public enum ErrorCode {
     PERMISSION_NOT_FOUND(4002, "Permission not found", HttpStatus.NOT_FOUND),
     ROLE_EXISTED(5001, "Role already exists", HttpStatus.BAD_REQUEST),
     ROLE_NOT_FOUND(5002, "Role not found", HttpStatus.NOT_FOUND),
-    DOB_INVALID(6001, "Invalid date of birth", HttpStatus.BAD_REQUEST);
+    DOB_INVALID(6001, "Invalid date of birth", HttpStatus.BAD_REQUEST),
+    THAM_SO_EXISTED(6002, "This parameter already exists", HttpStatus.BAD_REQUEST),
+    THAM_SO_NOT_FOUND(6003, "Parameter not found", HttpStatus.NOT_FOUND);
 
     int code;
     String message;

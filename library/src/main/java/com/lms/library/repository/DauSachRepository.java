@@ -12,4 +12,5 @@ public interface DauSachRepository extends JpaRepository<DauSach, Integer> {
     List<DauSach> findByTheLoai_MaTheLoai(Integer maTheLoai);
 
     boolean existsByTheLoai_MaTheLoai(Integer maTheLoai);
+
 }
