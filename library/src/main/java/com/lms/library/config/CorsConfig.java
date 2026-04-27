@@ -13,8 +13,7 @@
         public CorsFilter corsFilter() {
             CorsConfiguration config = new CorsConfiguration();
             config.setAllowCredentials(true);
-            config.addAllowedOrigin("http://localhost:5173");  // Vite dev
-            config.addAllowedOrigin("http://localhost:3000");  // nếu dùng CRA
+            config.addAllowedOrigin("https://library-fe-five.vercel.app"); 
             config.addAllowedHeader("*");
             config.addAllowedMethod("*");
 
