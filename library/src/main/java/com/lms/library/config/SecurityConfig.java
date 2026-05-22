@@ -36,6 +36,7 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS)
                                 .permitAll()
+                                .requestMatchers(HttpMethod.GET, "/health").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority("ROLE_STAFF")
                                 .anyRequest().authenticated());
                 http.oauth2ResourceServer(oauth2 -> oauth2
