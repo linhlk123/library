@@ -18,6 +18,7 @@
             config.addAllowedOrigin("http://localhost:5174");
             config.addAllowedHeader("*");
             config.addAllowedMethod("*");
+            
 
             UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
             source.registerCorsConfiguration("/**", config);

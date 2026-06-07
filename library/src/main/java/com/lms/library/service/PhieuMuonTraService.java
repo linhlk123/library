@@ -201,20 +201,15 @@ public class PhieuMuonTraService {
 
 		phieuMuonTraRepository.delete(phieuMuonTra);
 	}
+	
 	public List<PhieuMuonTraResponseDTO> getMyBorrowings() {
-			// 1. Lấy Tên đăng nhập (username) của người dùng hiện tại từ Security Context (Token)
 			var context = SecurityContextHolder.getContext();
 			String currentUsername = context.getAuthentication().getName();
+			List<PhieuMuonTra> myBorrowings = phieuMuonTraRepository.findByDocGia_MaDocGia(currentUsername);
 
-			// 2. Tìm danh sách phiếu mượn dựa trên tên đăng nhập này
-			// (Bạn cần có hàm findByNguoiDung_TenDangNhap trong PhieuMuonTraRepository)
-			List<PhieuMuonTra> myBorrowings = phieuMuonTraRepository.findByNguoiDung_TenDangNhap(currentUsername);
-
-			// 3. Map sang DTO và trả về
-			return myBorrowings.stream()
-					.map(phieuMuonTraMapper::toPhieuMuonTraResponseDTO) // Hoặc dùng cách map tương tự bạn đang dùng ở getAll()
-					.toList();
+			return mapToResponseDTOList(myBorrowings);
 	}
+
 	private List<PhieuMuonTraResponseDTO> mapToResponseDTOList(List<PhieuMuonTra> phieuMuonTraList) {
 		List<Integer> maDauSachIds = phieuMuonTraList.stream()
 				.map(PhieuMuonTra::getCuonSach)

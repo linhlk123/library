@@ -15,7 +15,8 @@ import java.util.List;
 @Repository
 public interface PhieuMuonTraRepository extends JpaRepository<PhieuMuonTra, Integer> {
 
-        List<PhieuMuonTra> findByNguoiDung_TenDangNhap(String tenDangNhap);
+        List<PhieuMuonTra> findByDocGia_MaDocGia(String maDocGia);
+        List<PhieuMuonTra> findByDocGia_MaDocGiaAndNgayTraIsNull(String maDocGia);
     @Query("SELECT p FROM PhieuMuonTra p " +
             "LEFT JOIN FETCH p.docGia " +           
             "LEFT JOIN FETCH p.nhanVien " +        

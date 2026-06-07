@@ -38,6 +38,7 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers(HttpMethod.GET, "/health").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/v1/users").hasAnyAuthority("ROLE_STAFF")
+                                .requestMatchers(HttpMethod.GET, "/api/v1/phieumuon/docgia/**").permitAll()
                                 .anyRequest().authenticated());
                 http.oauth2ResourceServer(oauth2 -> oauth2
                                 .jwt(jwtConfigurer -> jwtConfigurer

@@ -3,6 +3,7 @@ package com.lms.library.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,6 +70,7 @@ public class PhieuMuonTraController {
                 .build();
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/docgia/{maDocGia}")
     public ApiResponse<List<PhieuMuonTraResponseDTO>> getByMaDocGia(@PathVariable String maDocGia) {
         return ApiResponse.<List<PhieuMuonTraResponseDTO>>builder()
@@ -76,7 +78,7 @@ public class PhieuMuonTraController {
                 .message("Lấy danh sách phiếu mượn trả theo độc giả thành công")
                 .result(phieuMuonTraService.getByMaDocGia(maDocGia))
                 .build();
-    }
+    } 
 
     @GetMapping("/{soPhieu}")
     public ApiResponse<PhieuMuonTraResponse> getById(@PathVariable Integer soPhieu) {
