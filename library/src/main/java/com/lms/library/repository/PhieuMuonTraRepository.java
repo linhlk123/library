@@ -11,10 +11,11 @@ import org.springframework.stereotype.Repository;
 import com.lms.library.entity.DocGia;
 import com.lms.library.entity.PhieuMuonTra;
 import com.lms.library.enums.TrangThaiPhieu;
-
+import java.util.List;
 @Repository
 public interface PhieuMuonTraRepository extends JpaRepository<PhieuMuonTra, Integer> {
 
+        List<PhieuMuonTra> findByNguoiDung_TenDangNhap(String tenDangNhap);
     @Query("SELECT p FROM PhieuMuonTra p " +
             "LEFT JOIN FETCH p.docGia " +           
             "LEFT JOIN FETCH p.nhanVien " +        
